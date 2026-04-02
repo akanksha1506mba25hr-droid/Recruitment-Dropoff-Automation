@@ -1,0 +1,488 @@
+{
+  "name": "Recruitment Dropoff Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o",
+          "mode": "list",
+          "cachedResultName": "Candidate Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 100633671,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o/edit#gid=100633671"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d23f5e57-88ba-4214-808d-fac3d85f009d",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "F96qnTq3j3dpvOJY",
+          "name": "Google Sheets Trigger OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "56916f4d-f70b-4026-be71-c52d600fa5f0",
+              "leftValue": "={{ $json['  Days Since Last Contact  (in numbers)'] }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0d249d21-08f4-4a2b-90c3-d1d0a82dd475",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2794601e-6599-400f-b63d-ae9f72bedc4a",
+              "name": "Risk_Level",
+              "value": "High",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "24a87e81-8a91-4fce-945e-8329c6ae4a2e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0f9c1eeb-130c-4081-b4bc-7bf275d41eaf",
+              "leftValue": "={{ $json['  Days Since Last Contact  (in numbers)'] }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        96
+      ],
+      "id": "a6ee2834-ad87-44cf-abff-dde9f7cde6dc",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dad193ef-5e7d-4b99-a8b3-6c463ed517bf",
+              "name": "Risk_Level",
+              "value": "Medium",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        -48
+      ],
+      "id": "cf6368f3-f0a5-47e1-b11e-f7e33339d371",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9dbf0835-f2bb-4e08-91dd-d2c5141b8d76",
+              "name": "Risk_Level",
+              "value": "Low",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        176
+      ],
+      "id": "41140869-f906-45f2-9254-0f5a43075d04",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        832,
+        224
+      ],
+      "id": "151fb5d8-d28f-42cf-9107-0efaf707fe7a",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o",
+          "mode": "list",
+          "cachedResultName": "Candidate Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 402589570,
+          "mode": "list",
+          "cachedResultName": "Processed_Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1q7xtIHuSCJWSGlGRRFIHGhif5rB1LdxnI5sNqBpFG-o/edit#gid=402589570"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Candidate Name": "={{ $json['  Candidate Name  '] }}",
+            "Candidate Email ID": "={{ $json['  Candidate Email ID  '] }}",
+            "Role Applied For": "={{ $json['  Role Applied For  '] }}",
+            "Location": "={{ $json.Location }}",
+            "Days Since Last Contact (in numbers)": "={{ $json['  Days Since Last Contact  (in numbers)'] }}",
+            "Resume Score": "={{ $json['  Resume Score  '] }}",
+            "Risk_Level": "={{ $json.Risk_Level }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Candidate Email ID",
+              "displayName": "Candidate Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Role Applied For",
+              "displayName": "Role Applied For",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Days Since Last Contact (in numbers)",
+              "displayName": "Days Since Last Contact (in numbers)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resume Score",
+              "displayName": "Resume Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Risk_Level",
+              "displayName": "Risk_Level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        992,
+        320
+      ],
+      "id": "0319aaa8-0d04-4afc-9242-13792bf0b134",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "kGgM6r8AVbzDBH0M",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Candidate Email ID'] }}",
+        "subject": "Application Status Update",
+        "emailType": "text",
+        "message": "=Dear {{$json[\"Candidate Name\"]}},  \n\nThank you for applying for {{$json[\"Role Applied For\"]}} position. \n\nOur recruitment team will reach out to you soon.  \n\nBest Regards, \nHR Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1168,
+        320
+      ],
+      "id": "ea89fa3d-a8e8-4b9e-8bbf-d8010d38f36a",
+      "name": "Send a message",
+      "webhookId": "ef484739-69ae-4ed2-82ce-bb3732eb3417",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "P0tWHh7vAhutacxj",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "jhanvi1533.mba25hr@chitkara.edu.in",
+        "subject": "Candidate Risk Alert",
+        "emailType": "text",
+        "message": "=Candidate:{{ $('Google Sheets Trigger').item.json['  Candidate Name  '] }} \nEmail: {{ $('Google Sheets Trigger').item.json['  Candidate Email ID  '] }}\nRole:{{ $('Google Sheets Trigger').item.json['  Role Applied For  '] }}\nLocation: {{ $('Google Sheets Trigger').item.json.Location }}\nDays Since Last Contact: {{ $('Google Sheets Trigger').item.json['  Days Since Last Contact  (in numbers)'] }}\nResume Score: {{ $('Google Sheets Trigger').item.json['  Resume Score  '] }}\nRisk Level: {{ $('Merge').item.json.Risk_Level }}\n\nPlease follow-up with High and Medium risk candidates immediately.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1392,
+        320
+      ],
+      "id": "55dcc29d-7b27-4280-92c8-979a9598d2be",
+      "name": "Send a message1",
+      "webhookId": "feae4fda-980d-42f6-9fbd-3a642bdffaf5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "P0tWHh7vAhutacxj",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2221d2e9-2c2b-4700-9ecb-68027f2c2f6d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c612914b3e9a9714c224fcd6f3ea78cbb4fe4d757765ebd194a08f43efa6111c"
+  },
+  "id": "xgpdW4lb0b87UwQr",
+  "tags": []
+}
