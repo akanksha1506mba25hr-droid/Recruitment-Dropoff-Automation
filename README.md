@@ -32,7 +32,9 @@ This system predicts high-risk candidates and helps HR take timely actions.
 5. Data is stored in processed sheet  
 6. Emails are sent:
    - Candidate update email  
-   - HR alert for risky candidates  
+   - HR alert for risky candidates
+   - <img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/a3464490-79ba-4ab5-a0fc-babf8432c926" />
+
 
 ---
 
@@ -43,6 +45,8 @@ The dashboard includes:
 - Risk Distribution
 - Drop-off Analysis
 - Role-wise applications
+- <img width="1920" height="1080" alt="Screenshot (37)" src="https://github.com/user-attachments/assets/e7beda4b-edac-4fb8-b510-327db98085c7" />
+
 
 ---
 
